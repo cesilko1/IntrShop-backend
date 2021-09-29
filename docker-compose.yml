@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+    backend:
+        build: .
+        image: intrshop.api.raska-vilem.cz:BE
+        container_name: intrshop.api.raska-vilem.cz_BE
+        mem_limit: 65m
+        restart: unless-stopped
+        environment:
+            # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
+            - VIRTUAL_HOST=intrshop.api.raska-vilem.cz 
+            - VIRTUAL_PORT=3001
+            - LETSENCRYPT_HOST=intrshop.api.raska-vilem.cz
+            - LETSENCRYPT_EMAIL=wilhelm.master@gmail.com
+            # END NGINX-PROXY ENVIRONMENT VARIABLES
+        expose:
+            - 3001
+
+networks:
+    default:
+        external:
+            name: nginx-proxy

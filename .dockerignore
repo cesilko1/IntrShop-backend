@@ -1,0 +1,13 @@
+#VS Code settings
+.vscode
+
+#node modules
+backend/node_modules
+
+#git
+.gitignore
+.git
+
+#docker
+.docker-compose.yml
+Dockerfile
