@@ -3,8 +3,8 @@ version: '3.6'
 services:
     backend:
         build: .
-        image: api.intrshop.cf:BE
-        container_name: api.intrshop.cf_BE
+        image: intrshop.cf:BE
+        container_name: intrshop.cf_BE
         mem_limit: 65m
         restart: unless-stopped
         environment:
