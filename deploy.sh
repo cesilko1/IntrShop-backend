@@ -22,4 +22,4 @@ git push
 
 echo -e "${B}Starting build on remote server.${N}"
 
-ssh Server "cd production-apps/IntrShop-backend; screen -S build -d -m ./build.sh"
+ssh Server "cd production-apps/IntrShop-backend; screen -S build_intrshop_be -d -m ./build.sh"

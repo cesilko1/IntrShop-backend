@@ -7,7 +7,7 @@ const env = process.env.NODE_ENV || 'development';
 // production config
 const Config: IConfig = {
 	dev         : false,
-	origin      : 'https://new.raska-vilem.cz',
+	origin      : 'https://intrshop.raska-vilem.cz',
 	port        : Number(process.env.VIRTUAL_PORT),
 	mode        : env,
 	db          : String(process.env.DB_STRING),
