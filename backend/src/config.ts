@@ -21,7 +21,7 @@ if(env == 'development') {
 	Config.origin    = "*";
 	Config.port      = 3003;
 	Config.dev_delay = 0;
-	Config.db        = 'mongodb://localhost:27017/new-raska-vilem';
+	Config.db        = 'mongodb://localhost:27017/intrshop';
 }
 
 // throw errors in production mode
