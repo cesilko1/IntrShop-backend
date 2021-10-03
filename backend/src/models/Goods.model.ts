@@ -1,7 +1,5 @@
-import { boolean } from 'joi';
 import { Schema, model } from 'mongoose';
 import { IGoodsDocument, IGoodsModel } from '../interfaces/Goods';
-import { ISaleItem } from '../interfaces/Sales';
 
 const goodsSchema = new Schema({
 	name: {

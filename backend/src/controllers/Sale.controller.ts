@@ -7,6 +7,7 @@ import newSaleValidation from '../validation/NewSale.validation';
 const createSale = async (req: Request, res: Response) => {
 	if(newSaleValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
 
+	// @ts-ignore
 	const salesStatus: ISellItemResponse = await sale.sellItems(req.body.items);
 
 	if(salesStatus.soldItems.length > 0) return res.status(410).json(salesStatus.soldItems);

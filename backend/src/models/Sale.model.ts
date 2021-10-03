@@ -59,4 +59,5 @@ saleSchema.statics.sellItems = async function(items: ISaleItem[]): Promise<ISell
 	return response;
 }
 
+// @ts-ignore
 export default model<ISalesDocument, ISalesModel>('sales', saleSchema);
