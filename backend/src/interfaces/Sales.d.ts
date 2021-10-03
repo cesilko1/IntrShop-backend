@@ -14,3 +14,12 @@ export interface ISaleItem {
 }
 
 export interface ISalesDocument extends ISales, mongoose.Document { }
+
+export interface ISalesModel extends Model<ISalesDocument> {
+	sellItems(items: ISaleItem[]): Promise<string[]>;
+}
+
+export interface ISellItemResponse {
+	soldItems: string[];
+	price: number;
+}

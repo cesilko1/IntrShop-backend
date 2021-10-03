@@ -12,8 +12,7 @@ export default interface IGoods {
 export interface IGoodsDocument extends IGoods, mongoose.Document {
 	sell(count: number): Promise<boolean>;
 	lose(count: number): Promise<boolean>;
+	checkStock(count: number): boolean;
 }
 
-export interface IGoodsModel extends Model<IGoodsDocument> {
-	sellItems(items: ISaleItem[]): Promise<string[]>;
-}
+export interface IGoodsModel extends Model<IGoodsDocument> { }

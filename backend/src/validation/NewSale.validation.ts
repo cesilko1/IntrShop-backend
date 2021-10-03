@@ -2,9 +2,6 @@ import joi from "joi";
 
 const newSaleValidation = (data: any) => {
 	const schema = joi.object({
-		price: joi.number()
-			.min(0)
-			.optional(),
 		card: joi.boolean()
 			.optional(),
 		items: joi.array().items(joi.object({

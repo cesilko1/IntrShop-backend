@@ -32,16 +32,19 @@ const goodsSchema = new Schema({
 	}
 });
 
-goodsSchema.methods.sell = async function(count: number): Promise<boolean> {
+goodsSchema.methods.checkStock = function(count: number): boolean {
 	const goodsObject = this as IGoodsDocument;
 
-	console.log("inStock: "+goodsObject.inStock);
-	console.log("for sale: "+count);
+	if(count > goodsObject.inStock) return false;
+	return true;
+}
 
-	if(count > goodsObject.inStock) {console.log("x"); return false;}
-
+goodsSchema.methods.sell = async function(count: number): Promise<boolean> {
+	const goodsObject = this as IGoodsDocument;
+	if(count > goodsObject.inStock) return false;
+	
 	goodsObject.inStock -= count;
-
+	
 	return saveDocument(goodsObject);
 }
 
@@ -53,19 +56,6 @@ goodsSchema.methods.lose = async function(count: number): Promise<boolean> {
 	goodsObject.lost -= count;
 
 	return saveDocument(goodsObject);
-}
-
-goodsSchema.statics.sellItems = async function(items: ISaleItem[]): Promise<string[]> {
-	const goodsModel = this;
-	const errorItems: string[] = [];
-
-	for(var i = 0; i < items.length; i+=1) {
-		const itemsForSale = await goodsModel.findById(items[i].item);
-
-		if(!(await itemsForSale.sell(items[i].count))) errorItems.push(items[i].item);
-	}
-
-	return errorItems;
 }
 
 const saveDocument = async (document: IGoodsDocument): Promise<boolean> => {
