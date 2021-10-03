@@ -10,7 +10,14 @@ const createSale = async (req: Request, res: Response) => {
 
 	if(salesStatus.soldItems.length > 0) return res.status(410).json(salesStatus.soldItems);
 	
-	res.sendStatus(200);
+	try {
+		await new sale({price: salesStatus.price, ...req.body}).save();
+		res.sendStatus(201);
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
 }
 
 const deleteSaleById = async (req: Request, res: Response) => {
