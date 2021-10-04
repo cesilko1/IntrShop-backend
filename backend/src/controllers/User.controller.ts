@@ -10,6 +10,11 @@ import jwt from 'jsonwebtoken';
 import Config from '../config';
 
 
+const getUserInfo = async (req: IUserRequest, res: Response) => {
+	if(!req.user) return res.sendStatus(404);
+	res.status(200).json({_id: req.user._id, email: req.user.email, privileges: req.user.privileges, createdAt: req.user.createdAt});
+}
+
 const login = async (req: Request, res: Response) => {
 	if(loginValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
 
@@ -26,7 +31,7 @@ const login = async (req: Request, res: Response) => {
 
 	const token = jwt.sign({_id: user._id}, Config.token);
 
-	res.header('token', token).status(200).send(user._id);
+	res.header('token', token).status(200).json({_id: user._id, email: user.email, privileges: user.privileges, createdAt: user.createdAt});
 }
 
 const register = async (req: Request, res: Response) => {
@@ -35,7 +40,7 @@ const register = async (req: Request, res: Response) => {
 
 	try {
 		await new users(req.body).save();
-		res.status(200).send("Uživatel úspěšně zaregistován.");
+		res.status(201).send("Uživatel úspěšně zaregistován.");
 	}
 	catch(error) {
 		console.error(error);
@@ -70,4 +75,4 @@ const updateEmail = async (req: IUserRequest, res: Response) => {
 	}
 }
 
-export default { login, register, updatePassword, updateEmail }
+export default { login, register, updatePassword, updateEmail, getUserInfo }
