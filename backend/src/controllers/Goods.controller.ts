@@ -3,6 +3,18 @@ import goods from '../models/Goods.model';
 import newGoodsValidation from '../validation/NewGoods.validation';
 import updateGoodsValidation from '../validation/UpdateGoods.validation';
 
+
+const getGoods = async (req: Request, res: Response) => {
+	try {
+		const selectedGoods = await goods.find();
+		res.status(200).json(selectedGoods);
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
 const addNewGoods = async (req: Request, res: Response) => {
 	if(newGoodsValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
 
@@ -51,4 +63,4 @@ const deleteGoodsById = async (req: Request, res: Response) => {
 	}
 }
 
-export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById }
+export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById, getGoods }
