@@ -14,7 +14,7 @@ const createSale = async (req: Request, res: Response) => {
 	
 	try {
 		await new sale({price: salesStatus.price, ...req.body}).save();
-		res.sendStatus(201);
+		res.status(201).send('Nákup úspěšně proveden');
 	}
 	catch(error) {
 		console.error(error);
