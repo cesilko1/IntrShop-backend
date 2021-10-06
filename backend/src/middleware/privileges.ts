@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 import { IUserRequest } from "../interfaces/User";
 
 const error = (res: Response) => {res.sendStatus(500); throw new Error("req.user not provided!");}
-const unauthorized = (res: Response) => {return res.status(401).send('Uživatel nemá patřičná oprávnění.');}
+const unauthorized = (res: Response) => {return res.status(401).send('Nemáte patřičná oprávnění.');}
 
 const admin = async (req: IUserRequest, res: Response, next: NextFunction) => {
 	if(!req.user) return error(res);

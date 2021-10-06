@@ -22,6 +22,7 @@ if(env == 'development') {
 	Config.port      = 3003;
 	Config.dev_delay = 0;
 	Config.db        = 'mongodb://localhost:27017/intrshop';
+	Config.token     = 'sdfs5df4sdfs5df';
 }
 
 // throw errors in production mode

@@ -3,6 +3,7 @@ import Config from "../config";
 import users from "../models/User.model";
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { IUserRequest } from "../interfaces/User";
+import { string } from "joi";
 
 const verifyToken = async (req: IUserRequest, res: Response, next: NextFunction) => {
 	const token = req.headers.token as string;
@@ -14,13 +15,13 @@ const verifyToken = async (req: IUserRequest, res: Response, next: NextFunction)
 		verifiedToken = await jwt.verify(token, Config.token) as {_id: string};
 	}
 	catch(error) {
-		return res.status(401).send('Uživatel není přihlášen.');
+		return res.status(401).send('Uživatel není přihlášen.xxx');
 	}
 
 	try {
 		const user = await users.findById(verifiedToken._id);
 		if(user) req.user = user;
-		else return res.status(401).send('Uživatel není přihlášen.');
+		else return res.status(401).send('Uživatel není přihlášen.yyy');
 	}
 	catch(error) {
 		console.error(error);
