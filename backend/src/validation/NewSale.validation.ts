@@ -4,7 +4,7 @@ const newSaleValidation = (data: any) => {
 	const schema = joi.object({
 		card: joi.boolean()
 			.optional(),
-		items: joi.array().items(joi.object({
+		items: joi.array().min(1).items(joi.object({
 			item: joi.string()
 				.length(24)
 				.required(),
@@ -14,7 +14,8 @@ const newSaleValidation = (data: any) => {
 			price: joi.number()
 				.min(0)
 				.optional()
-		}))
+		})
+		)
 	});
 
 	return schema.validate(data);
