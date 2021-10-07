@@ -55,7 +55,7 @@ const getGoodsById = async (req: Request, res: Response) => {
 const deleteGoodsById = async (req: Request, res: Response) => {
 	try {
 		await goods.findByIdAndDelete(req.params.id);
-		res.status(200).send('Zboží śpěšně odstraněno');
+		res.status(200).send('Zboží úspěšně odstraněno');
 	}
 	catch(error) {
 		console.log(error);
