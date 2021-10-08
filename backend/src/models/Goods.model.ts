@@ -23,6 +23,11 @@ const goodsSchema = new Schema({
 		required: true,
 		min: 0
 	},
+	sold: {
+		type: Number,
+		required: true,
+		min: 0
+	},
 	lost: {
 		type: Number,
 		required: false,
@@ -42,6 +47,7 @@ goodsSchema.methods.sell = async function(count: number): Promise<boolean> {
 	if(count > goodsObject.inStock) return false;
 	
 	goodsObject.inStock -= count;
+	goodsObject.sold += count;
 	
 	return saveDocument(goodsObject);
 }
@@ -49,9 +55,11 @@ goodsSchema.methods.sell = async function(count: number): Promise<boolean> {
 goodsSchema.methods.lose = async function(count: number): Promise<boolean> {
 	const goodsObject = this as IGoodsDocument;
 
-	if(count > goodsObject.lost) return false;
+	if(count > goodsObject.inStock) return false;
 
+	goodsObject.inStock -= count;
 	goodsObject.lost -= count;
+	
 
 	return saveDocument(goodsObject);
 }

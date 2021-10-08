@@ -18,6 +18,10 @@ const newGoodsValidation = (data: any) => {
 		lost: joi.number()
 			.min(0)
 			.optional()
+			.allow(''),
+		sold: joi.number()
+			.min(0)
+			.optional()
 			.allow('')
 	});
 

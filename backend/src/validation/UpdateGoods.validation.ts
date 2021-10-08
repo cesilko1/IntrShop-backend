@@ -16,6 +16,9 @@ const updateGoodsValidation = (data: any) => {
 			.optional(),
 		lost: joi.number()
 			.min(0)
+			.optional(),
+		sold: joi.number()
+			.min(0)
 			.optional()
 	});
 
