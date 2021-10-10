@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import goods from '../models/Goods.model';
 import newGoodsValidation from '../validation/NewGoods.validation';
 import updateGoodsValidation from '../validation/UpdateGoods.validation';
+import looseGoodsValidation from '../validation/LooseGoods.validation';
 
 
 const getGoods = async (req: Request, res: Response) => {
@@ -41,6 +42,20 @@ const updateGoodsById = async (req: Request, res: Response) => {
 	}
 }
 
+const looseGoodsById = async (req: Request, res: Response) => {
+	if(looseGoodsValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
+
+	try {
+		const item = await goods.findById(req.params.id);
+		if(item && !(await item.lose(req.body.count))) return res.sendStatus(404);
+		res.sendStatus(200);
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
 const getGoodsById = async (req: Request, res: Response) => {
 	try {
 		const selectedGoods = await goods.findById(req.params.id);
@@ -63,4 +78,4 @@ const deleteGoodsById = async (req: Request, res: Response) => {
 	}
 }
 
-export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById, getGoods }
+export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById, getGoods, looseGoodsById }

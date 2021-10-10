@@ -7,6 +7,7 @@ import privileges from '../middleware/privileges';
 const router: Router = express.Router();
 
 router.get('/', verifyToken, privileges.guest, controller.getGoods);
+router.put('/:id/loose', verifyToken, privileges.guest, controller.looseGoodsById);
 router.post('/new', verifyToken, privileges.admin, controller.addNewGoods);
 router.get('/:id', verifyToken, checkId, controller.getGoodsById);
 router.put('/:id', verifyToken, checkId, privileges.admin, controller.updateGoodsById);

@@ -58,7 +58,7 @@ goodsSchema.methods.lose = async function(count: number): Promise<boolean> {
 	if(count > goodsObject.inStock) return false;
 
 	goodsObject.inStock -= count;
-	goodsObject.lost -= count;
+	goodsObject.lost += count;
 	
 
 	return saveDocument(goodsObject);
