@@ -78,6 +78,7 @@ goodsSchema.methods.buyNew = async function(count: number, price: number): Promi
 	const oldBuyPrice = goodsObject.buyPrice;
 
 	goodsObject.inStock += count;
+	goodsObject.bought += count;
 
 	goodsObject.buyPrice = ( (oldCount * oldBuyPrice) + (count * price) ) / (oldCount + count);
 

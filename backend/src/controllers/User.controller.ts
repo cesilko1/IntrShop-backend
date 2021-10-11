@@ -86,4 +86,15 @@ const getUsers = async (req: IUserRequest, res: Response) => {
 	}
 }
 
-export default { login, register, updatePassword, updateEmail, getUserInfo, getUsers }
+const deleteUserById = async (req: IUserRequest, res: Response) => {
+	try {
+		await users.findByIdAndDelete(req.params.id);
+		res.status(200).send("Uživatel odstraněn.");
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
+export default { login, register, updatePassword, updateEmail, getUserInfo, getUsers, deleteUserById }

@@ -11,5 +11,6 @@ router.put('/email', verifyToken, controller.updateEmail);
 router.put('/password', verifyToken, controller.updatePassword);
 router.get('/', verifyToken, controller.getUserInfo);
 router.get('/users', verifyToken, privileges.admin, controller.getUsers);
+router.delete('/:id', verifyToken, privileges.admin, controller.deleteUserById);
 
 export default router;
