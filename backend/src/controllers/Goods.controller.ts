@@ -3,6 +3,7 @@ import goods from '../models/Goods.model';
 import newGoodsValidation from '../validation/NewGoods.validation';
 import updateGoodsValidation from '../validation/UpdateGoods.validation';
 import looseGoodsValidation from '../validation/LooseGoods.validation';
+import buyNewValidation from '../validation/BuyNew.validation';
 
 
 const getGoods = async (req: Request, res: Response) => {
@@ -17,7 +18,7 @@ const getGoods = async (req: Request, res: Response) => {
 }
 
 const addNewGoods = async (req: Request, res: Response) => {
-	if(newGoodsValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
+	if(newGoodsValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.xxx');
 
 	try {
 		await new goods(req.body).save();
@@ -67,6 +68,21 @@ const getGoodsById = async (req: Request, res: Response) => {
 	}
 }
 
+const buyNewById = async (req: Request, res: Response) => {
+	if(buyNewValidation(req.body).error) return res.status(400).send('Nastala chyba při validaci dat.');
+
+	try {
+		const item = await goods.findById(req.params.id);
+		if(!item) return res.sendStatus(404);
+		await item.buyNew(req.body.count, req.body.price);
+		res.status(200).send('Zboží bylo úspěšně doplněno');
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
 const deleteGoodsById = async (req: Request, res: Response) => {
 	try {
 		await goods.findByIdAndDelete(req.params.id);
@@ -78,4 +94,4 @@ const deleteGoodsById = async (req: Request, res: Response) => {
 	}
 }
 
-export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById, getGoods, looseGoodsById }
+export default { addNewGoods, getGoodsById, updateGoodsById, deleteGoodsById, getGoods, looseGoodsById, buyNewById }

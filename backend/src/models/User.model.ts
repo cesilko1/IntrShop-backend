@@ -26,7 +26,6 @@ const userSchema: Schema = new Schema({
 });
 
 userSchema.pre("save", async function (next: HookNextFunction) {
-	console.log("presave");
 	const user = this as IUserDocument;
 
 	if(!user.isModified("password")) return next();

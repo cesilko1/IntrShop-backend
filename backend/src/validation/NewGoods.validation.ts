@@ -22,7 +22,10 @@ const newGoodsValidation = (data: any) => {
 		sold: joi.number()
 			.min(0)
 			.optional()
-			.allow('')
+			.allow(''),
+		bought: joi.number()
+			.min(0)
+			.optional()
 	});
 
 	return schema.validate(data);

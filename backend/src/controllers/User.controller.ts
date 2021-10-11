@@ -75,4 +75,15 @@ const updateEmail = async (req: IUserRequest, res: Response) => {
 	}
 }
 
-export default { login, register, updatePassword, updateEmail, getUserInfo }
+const getUsers = async (req: IUserRequest, res: Response) => {
+	try {
+		const selectedUsers = await users.find();
+		res.status(200).json(selectedUsers);
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
+export default { login, register, updatePassword, updateEmail, getUserInfo, getUsers }
