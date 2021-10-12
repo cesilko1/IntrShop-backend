@@ -6,10 +6,10 @@ import privileges from '../middleware/privileges';
 
 const router: Router = express.Router();
 
-router.get('/', verifyToken, privileges.admin, controller.getSales);
+router.get('/', verifyToken, privileges.guest, controller.getSales);
 router.post('/new', verifyToken, privileges.guest, controller.createSale);
-router.get('/:id', verifyToken, checkId, privileges.admin, controller.getSaleById);
-router.get('/:id/items', verifyToken, checkId, privileges.admin, controller.getSaleItemsById);
+router.get('/:id', verifyToken, checkId, privileges.guest, controller.getSaleById);
+router.get('/:id/items', verifyToken, checkId, privileges.guest, controller.getSaleItemsById);
 router.delete('/:id', verifyToken, checkId, privileges.admin, controller.deleteSaleById);	
 
 export default router;
