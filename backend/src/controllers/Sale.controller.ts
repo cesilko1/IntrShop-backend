@@ -57,11 +57,10 @@ const getSaleItemsById = async (req: Request, res: Response) => {
 
 			if(!selectedGoods) continue;
 
-			selectedGoods.sellPrice = selectedSale.items[i].price || selectedGoods.sellPrice;
+			const price = selectedSale.items[i].price || selectedGoods.sellPrice;
 
-			soldItems.push(selectedGoods);
+			soldItems.push({goods: selectedGoods, price: price, count: selectedSale.items[i].count});
 		}
-
 		res.status(200).json(soldItems);
 	}
 	catch(error) {
