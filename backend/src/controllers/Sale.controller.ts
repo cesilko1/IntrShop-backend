@@ -22,6 +22,17 @@ const createSale = async (req: Request, res: Response) => {
 	}
 }
 
+const getSales = async (req: Request, res: Response) => {
+	try {
+		const selectedSales = await sale.find();
+		res.status(200).json(selectedSales);
+	}
+	catch(error) {
+		console.error(error);
+		res.sendStatus(500);
+	}
+}
+
 const getSaleById = async (req: Request, res: Response) => {
 	try {
 		const selectedSale = await sale.findById(req.params.id);
@@ -70,4 +81,4 @@ const deleteSaleById = async (req: Request, res: Response) => {
 	}
 }
 
-export default { createSale, deleteSaleById, getSaleById, getSaleItemsById }
+export default { createSale, deleteSaleById, getSaleById, getSaleItemsById, getSales }
