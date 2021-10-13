@@ -71,7 +71,9 @@ const getSaleItemsById = async (req: Request, res: Response) => {
 
 const deleteSaleById = async (req: Request, res: Response) => {
 	try {
-		await sale.findByIdAndDelete(req.params.id);
+		const saleForCancel = await sale.findById(req.params.id);
+		if(!saleForCancel) return res.sendStatus(410);
+		if(!(await saleForCancel.cancelSale())) return res.sendStatus(500); 
 		res.sendStatus(200);
 	}
 	catch(error) {

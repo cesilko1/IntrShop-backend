@@ -13,7 +13,9 @@ export interface ISaleItem {
 	price?: number;
 }
 
-export interface ISalesDocument extends ISales, mongoose.Document { }
+export interface ISalesDocument extends ISales, mongoose.Document {
+	cancelSale(): Promise<string[]>;
+}
 
 export interface ISalesModel extends Model<ISalesDocument> {
 	sellItems(items: ISaleItem[]): Promise<string[]>;

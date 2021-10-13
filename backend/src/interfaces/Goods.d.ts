@@ -16,6 +16,7 @@ export interface IGoodsDocument extends IGoods, mongoose.Document {
 	lose(count: number): Promise<boolean>;
 	checkStock(count: number): boolean;
 	buyNew(count: number, price: number): Promise<boolean>;
+	cancelSell(count: number): Promise<boolean>;
 }
 
 export interface IGoodsModel extends Model<IGoodsDocument> { }

@@ -33,6 +33,19 @@ const saleSchema: Schema = new Schema({
 	}]
 });
 
+saleSchema.methods.cancelSale = async function(): Promise<boolean> {
+	const saleObject = this as ISalesDocument;
+
+	for(var i=0; i<saleObject.items.length; i+=1) {
+		const item = await goodsModel.findById(saleObject.items[i].item);
+		if(!item || !(await item.cancelSell(saleObject.items[i].count))) continue;
+	}
+
+	saleObject.delete();
+
+	return true;
+}
+
 saleSchema.statics.sellItems = async function(items: ISaleItem[]): Promise<ISellItemResponse> {
 	const response: ISellItemResponse = {
 		soldItems: [],

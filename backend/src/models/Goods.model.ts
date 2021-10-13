@@ -85,6 +85,17 @@ goodsSchema.methods.buyNew = async function(count: number, price: number): Promi
 	return saveDocument(goodsObject);
 }
 
+goodsSchema.methods.cancelSell = async function(count: number): Promise<boolean> {
+	const goodsObject = this as IGoodsDocument;
+
+	if(count > goodsObject.sold) return false;
+
+	goodsObject.inStock += count;
+	goodsObject.sold -= count;
+
+	return saveDocument(goodsObject);
+}
+
 const saveDocument = async (document: IGoodsDocument): Promise<boolean> => {
 	try {
 		await document.save();
